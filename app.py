@@ -1,0 +1,24 @@
+import streamlit as st
+
+def generate_schedule(score, difficulty):
+    priority = (100 - score) + difficulty * 10
+    
+    if score < 50:
+        hours = 3
+    elif score < 70:
+        hours = 2
+    else:
+        hours = 1
+        
+    return priority, hours
+
+st.title("AI Smart Class Scheduler")
+
+subject = st.text_input("Subject Name")
+score = st.slider("Performance Score", 0, 100, 60)
+difficulty = st.slider("Difficulty Level", 1, 5, 3)
+
+if st.button("Generate Plan"):
+    priority, hours = generate_schedule(score, difficulty)
+    st.success(f"Recommended Study Hours: {hours}")
+    st.write(f"Priority Score: {priority}")
